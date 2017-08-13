@@ -2,13 +2,13 @@ FROM arm32v7/debian:jessie-slim
 
 MAINTAINER michaelatdocker <michael.kunzmann@gmail.com>
 
-ENV DEBIAN_FRONTEND noninteractive
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update
-RUN apt-get -y --force-yes install wget apt-transport-https
+RUN apt-get update && \
+apt-get -y --force-yes --no-install-recommends install wget apt-transport-https
 
 # Install perl packages
-RUN apt-get -y --force-yes install libalgorithm-merge-perl \
+RUN apt-get -y --force-yes --no-install-recommends install libalgorithm-merge-perl \
 libclass-isa-perl \
 libcommon-sense-perl \
 libdpkg-perl \
@@ -27,12 +27,14 @@ libterm-readkey-perl \
 libterm-readline-perl-perl \
 libxml-simple-perl
 
-RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
-RUN echo "deb https://debian.fhem.de/nightly/ /" | tee -a /etc/apt/sources.list.d/fhem.list
-RUN apt-get update
-RUN apt-get -y --force-yes install supervisor fhem telnet
-RUN mkdir -p /var/log/supervisor
+RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add - && \
+echo "deb https://debian.fhem.de/nightly/ /" | tee -a /etc/apt/sources.list.d/fhem.list && \
+apt-get update && \
+apt-get -y --force-yes install supervisor fhem telnet && \
+apt-get clean -qy && \
+rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /var/log/supervisor
 RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
 
 COPY ./etc/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
