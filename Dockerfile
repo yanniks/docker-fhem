@@ -27,8 +27,8 @@ libterm-readkey-perl \
 libterm-readline-perl-perl \
 libxml-simple-perl
 
-RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add - && \
-echo "deb https://debian.fhem.de/nightly/ /" | tee -a /etc/apt/sources.list.d/fhem.list && \
+RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
+RUN echo "deb https://debian.fhem.de/nightly/ /" | tee -a /etc/apt/sources.list.d/fhem.list && \
 apt-get update && \
 apt-get -y --force-yes install fhem telnet && \
 apt-get clean -qy && \
