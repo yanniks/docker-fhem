@@ -1,4 +1,4 @@
-FROM arm32v7/debian:jessie-slim
+FROM debian:stretch
 
 MAINTAINER michaelatdocker <michael.kunzmann@gmail.com>
 
