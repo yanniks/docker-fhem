@@ -1,7 +1,7 @@
 #!/bin/sh
 cd /opt/fhem
 if ! grep -q "attr global logfile -" "fhem.cfg"; then
-   echo Global logfile is set. We'll patch that...
+   echo Global logfile is set. We\'ll patch that...
    echo Copying the original file from fhem.cfg to fhem.cfg.bak
    cp fhem.cfg fhem.cfg.bak
    sed -i '/attr global logfile/c\attr global logfile -' fhem.cfg
