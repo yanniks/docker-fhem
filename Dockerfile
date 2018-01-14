@@ -44,4 +44,5 @@ COPY fhem-foreground /usr/bin/fhem-foreground
 VOLUME ["/opt/fhem"]
 EXPOSE 8083
 
+USER fhem:dialout
 CMD ["/usr/bin/fhem-foreground"]
