@@ -25,7 +25,10 @@ libswitch-perl \
 libsys-hostname-long-perl \
 libterm-readkey-perl \
 libterm-readline-perl-perl \
-libxml-simple-perl
+libxml-simple-perl \
+libsoap-lite-perl \
+libwww-perl \
+libxml-parser-lite-perl
 
 RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
 RUN echo "deb https://debian.fhem.de/nightly/ /" | tee -a /etc/apt/sources.list.d/fhem.list && \
