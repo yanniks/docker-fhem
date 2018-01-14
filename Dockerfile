@@ -2,9 +2,8 @@ FROM alpine
 
 MAINTAINER Yannik Ehlert <kontakt@yanniks.de>
 
-RUN apk add --update perl perl-device-serialport perl-xml-libxml-simple \
+RUN apk add --no-cache perl perl-device-serialport perl-xml-libxml-simple \
 perl-libwww perl-soap-lite perl-xml-parser && \
-rm -rf /var/cache/apk/* && \
 adduser -S -D -h /opt/fhem -G dialout fhem && \
 cd /opt/fhem && \
 wget http://fhem.de/fhem-5.8.tar.gz && \
