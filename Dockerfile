@@ -19,6 +19,7 @@ chown -R fhem:dialout /opt/fhem
 COPY fhem-foreground /usr/bin/fhem-foreground
 RUN chmod +x /usr/bin/fhem-foreground
 
+WORKDIR /opt/fhem/
 VOLUME ["/opt/fhem"]
 EXPOSE 8083
 
