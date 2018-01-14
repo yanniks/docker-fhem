@@ -1,45 +1,17 @@
-FROM debian:stretch-slim
+FROM alpine
 
-MAINTAINER michaelatdocker <michael.kunzmann@gmail.com>
+MAINTAINER Yannik Ehlert <kontakt@yanniks.de>
 
-ARG DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && \
-apt-get -y --force-yes --no-install-recommends install wget apt-transport-https
-
-# Install perl packages
-RUN apt-get -y --force-yes --no-install-recommends install libalgorithm-merge-perl \
-libclass-isa-perl \
-libcommon-sense-perl \
-libdpkg-perl \
-liberror-perl \
-libfile-copy-recursive-perl \
-libfile-fcntllock-perl \
-libio-socket-ip-perl \
-libio-socket-multicast-perl \
-libjson-perl \
-libjson-xs-perl \
-libmail-sendmail-perl \
-libsocket-perl \
-libswitch-perl \
-libsys-hostname-long-perl \
-libterm-readkey-perl \
-libterm-readline-perl-perl \
-libxml-simple-perl \
-libsoap-lite-perl \
-libwww-perl \
-libxml-parser-lite-perl \
-gnupg \
-systemd-sysv
-
-RUN wget -qO - https://debian.fhem.de/archive.key | apt-key add -
-RUN echo "deb https://debian.fhem.de/nightly/ /" | tee -a /etc/apt/sources.list.d/fhem.list && \
-apt-get update && \
-apt-get -y --force-yes install fhem telnet && \
-apt-get clean -qy && \
-rm -rf /var/lib/apt/lists/*
-
-RUN echo Europe/Berlin > /etc/timezone && dpkg-reconfigure tzdata
+RUN apk add --update perl perl-device-serialport perl-xml-libxml-simple \
+perl-libwww perl-soap-lite perl-xml-parser && \
+rm -rf /var/cache/apk/* && \
+adduser -S -D -h /opt/fhem -G dialout fhem && \
+cd /opt/fhem && \
+wget http://fhem.de/fhem-5.8.tar.gz && \
+tar -xzf fhem-5.8.tar.gz -C /tmp/ && \
+rm fhem-5.8.tar.gz && \
+cp -R /tmp/fhem-5.8/* ./ && \
+rm -r /tmp/fhem-5.8/
 
 COPY fhem-foreground /usr/bin/fhem-foreground
 
