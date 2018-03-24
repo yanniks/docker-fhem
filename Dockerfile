@@ -14,7 +14,11 @@ tar -xzf fhem-5.8.tar.gz -C /tmp/ && \
 rm fhem-5.8.tar.gz && \
 cp -R /tmp/fhem-5.8/* ./ && \
 rm -r /tmp/fhem-5.8/ && \
-chown -R fhem:dialout /opt/fhem
+chown -R fhem:dialout /opt/fhem && \
+/usr/bin/cpan App::cpanminus && rm -rf /root/.cpan
+
+# Install cpan modules
+RUN cpan RPC::XML::Server RPC::XML::Client
 
 COPY fhem-foreground /usr/bin/fhem-foreground
 RUN chmod +x /usr/bin/fhem-foreground
