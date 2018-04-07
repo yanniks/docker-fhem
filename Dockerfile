@@ -3,7 +3,7 @@ FROM alpine
 MAINTAINER Yannik Ehlert <kontakt@yanniks.de>
 
 RUN apk add --no-cache perl perl-device-serialport perl-xml-libxml-simple \
-perl-libwww perl-xml-parser perl-json perl-dev && \
+perl-libwww perl-xml-parser perl-json perl-module-pluggable perl-dev && \
 adduser -S -D -h /opt/fhem -G dialout fhem
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
 --allow-untrusted perl-soap-lite
