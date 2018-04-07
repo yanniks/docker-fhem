@@ -18,7 +18,7 @@ chown -R fhem:dialout /opt/fhem && \
 /usr/bin/cpan App::cpanminus && rm -rf /root/.cpan
 
 # Install cpan modules
-RUN cpan RPC::XML::Server RPC::XML::Client
+RUN cpan install Net::MQTT:Simple Net::MQTT:Constants
 
 COPY fhem-foreground /usr/bin/fhem-foreground
 RUN chmod +x /usr/bin/fhem-foreground
