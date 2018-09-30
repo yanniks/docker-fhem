@@ -3,7 +3,7 @@ FROM alpine
 MAINTAINER Yannik Ehlert <kontakt@yanniks.de>
 
 RUN apk add --no-cache perl perl-device-serialport perl-xml-libxml-simple \
-perl-libwww perl-xml-parser perl-json perl-module-pluggable perl-dev && \
+perl-libwww perl-xml-parser perl-json perl-module-pluggable perl-dev tzdata && \
 adduser -S -D -h /opt/fhem -G dialout fhem
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ \
 --allow-untrusted perl-soap-lite
@@ -16,6 +16,10 @@ cp -R /tmp/fhem-5.8/* ./ && \
 rm -r /tmp/fhem-5.8/ && \
 chown -R fhem:dialout /opt/fhem && \
 /usr/bin/cpan App::cpanminus && rm -rf /root/.cpan
+
+# Set the timezone
+RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
+echo "Europe/Berlin" > /etc/timezone
 
 # Install cpan modules
 RUN cpan install Net::MQTT:Simple Net::MQTT:Constants
